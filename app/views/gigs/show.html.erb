@@ -1,0 +1,38 @@
+<div class="contents">
+	<section id="job">
+		<div class="container">
+			<div class="row">
+				<h3 class="sub-heading">Gig Detail
+					<span class="pull-right">
+						<small>
+							<%= link_to "&larr; All Gigs".html_safe, search_gigs_path %>
+						</small>
+					</span>
+				</h3>
+				<div class="col-xs-12 col-md-8">
+					<div class="content-inner-detail">
+						<h1 class="sub-heading"><%= @gig.name %> <span class="text-danger"></span></h1>
+						<p><i class="fa fa-calendar"></i><%= @gig.created_at.strftime("%m/%d/%y") %>|<i class="fa fa-map-marker"></i>
+						<%= @gig.location.capitalize %> | <%= @gig.category.name %><span class="label label-success"><%= number_to_currency(@gig.budget, precision: 0) %></span></p>
+						<hr/>
+						<legend>Description</legend>
+						<p><%= @gig.description %></p>
+						<legend>Skills Wanted</legend>
+						<ul>
+						<%# @gig.skills.each do |skill| %>
+						<li><%#= skill.name %></li>
+						<%# end %>
+					</ul>
+				</div>
+			</div>
+		<div class="col-xs-12 col-md-4">
+			<div class="content-inner-detail">
+				<legend>Subimit a Proposal</legend>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+</div>
+
+	</section>
