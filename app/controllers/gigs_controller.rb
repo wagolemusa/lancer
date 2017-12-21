@@ -21,6 +21,7 @@ end
 
 def show
 	@gig = Gig.find(params[:id])
+	@proposals = @gig.proposals.order(created_at: :desc)
 end
 
 def search
