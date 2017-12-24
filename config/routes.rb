@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   end
   root 'gigs#index'
 
+  get '/mygigs' => 'gigs#mygigs' #allows users to cheach on this own gigs
+
 end

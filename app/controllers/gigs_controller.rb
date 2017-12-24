@@ -36,7 +36,11 @@ def search
 	
 end
 
-
+# it allows the user to see this gigs
+def mygigs
+	@gigs = Gig.where(user_id: current_user).order(created_at: :asc)
+	
+end
 private
 	def gig_params
 		params.require(:gig).permit(:name, :description, :budget, :location, :open, :category_id, :skill_list, :awarded_proposal)
