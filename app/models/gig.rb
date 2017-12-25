@@ -27,4 +27,14 @@ def skill_list
 		skill.name
 		end.join(",")
 	end	
+
+def self.order_list(sort_order)
+	if sort_order == "newest" || sort_order.blank?
+		order(created_at: :desc)
+	elsif sort_order == "name"
+		order(name: :asc)
+	else
+		order(created_at: :asc)
+	end
+end
 end

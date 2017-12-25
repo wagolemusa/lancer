@@ -2,7 +2,8 @@ class GigsController < ApplicationController
 
 
 def index
-	@gigs = Gig.all.order("created_at DESC").page(params[:page]).per(10)
+	@gigs = Gig.all.order_list(params[:sort_by]).page(params[:page]).per(10)
+	@users = User.all
 
 end
 

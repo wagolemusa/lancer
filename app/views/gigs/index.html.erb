@@ -67,7 +67,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <h1>Find the job that fits your life</h1><br><h2>More than <strong>12,000</strong> jobs are waiting to Kickstart your career!</h2>
+              <h1>Find the job that fits your life</h1><br><h2>More than <strong><%= @gigs.total_count %></strong> jobs are waiting to Kickstart your career! and We have <%= @users.count %> Contractors</h2>
               <div class="content">
                   <div class="row">
                     <div class="col-md-4 col-sm-6">
@@ -117,11 +117,24 @@
     <section class="find-job section">
       <div class="container">
         <h2 class="section-title">Hot Jobs</h2>
+        <span class="pull-right">
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+            Sort By
+            <span class="ceret"></span>
+              
+            </button>
+            <ul class="dropdown-menu">
+          <li><%= link_to "Oldest", gigs_path(sort_by: "oldest") %></li>  
+          <li><%= link_to "Newest", gigs_path(sort_by: "newest") %></li> 
+          <li><%= link_to "Name", gigs_path(sort_by: "name") %></li>    
+            </ul>
+          </div>
+        </span>
         <div class="row">
-
           <div class="col-md-12">
           <% @gigs.each do |gig| %>
-
+          <tr>
             <div class="job-list">
 
               <div class="thumb">
@@ -129,8 +142,12 @@
                 <a href="job-details.html"><img src="assets/img/jobs/img-1.jpg" alt=""></a>
               </div>
               <div class="job-list-content">
-                <h4><a href="job-details.html"><%= link_to gig.name, gig %></a><span class="full-time">Full-Time</span></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quaerat aut veniam molestiae atque dolorum omnis temporibus consequuntur saepe. Nemo atque consectetur saepe corporis odit in dicta reprehenderit, officiis, praesentium?</p>
+                <h4><a href="job-details.html"><%= link_to gig.name, gig %></a><span class="full-time"><%= number_to_currency(gig.budget, precision: 0) %></span></h4>
+                <p><%= h truncate(gig.description, length: 500) %></p>
+
+                <p>Skills:<%#= gig.skills.map{ |s| s.name }.join(",") %></p>
+
+                <%= gig.category.name %>
                 <div class="job-tag">
                   <div class="pull-left">
                     <div class="meta-tag">
