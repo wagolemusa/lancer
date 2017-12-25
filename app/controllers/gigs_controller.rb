@@ -29,8 +29,16 @@ def update
 	@gig.update(gig_params)
 	redirect_to @gig
 end
+def edit
+	@gig = Gig.find(params[:id])
+end
 
-
+def destroy
+	@gig = Gig.find(params[:id])
+	@gig.destroy
+	redirect_to :mygigs
+	
+end
 def search
 	@gigs = Gig.search(params).page(params[:page]).per(10)
 	

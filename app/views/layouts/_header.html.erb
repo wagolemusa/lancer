@@ -161,6 +161,7 @@
                   <li class="left"><%= link_to "Post Job &raquo;".html_safe, new_gig_path, class: "btn btn-warning navbar-btn" %></li>
 
                   <% if user_signed_in? %>
+                  <%= link_to "My Gigs", mygigs_path, class: "btn btn-success navbar-btn" %>
 
                   <li class="right"><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-warning navbar-btn" %></li>
                   <li class="right"><%= link_to "Sign Out", destroy_user_session_path, class: "btn btn-warning navbar-btn", method: :delete %></li>
