@@ -13,21 +13,23 @@
 					<div class="content-inner-detail">
 						<h1 class="sub-heading"><%= @gig.name %> <span class="text-danger"></span></h1>
 						<p><i class="fa fa-calendar"></i><%= @gig.created_at.strftime("%m/%d/%y") %>|<i class="fa fa-map-marker"></i>
-						<%= @gig.location.capitalize %> | <%= @gig.category.name %><span class="label label-success"><%= number_to_currency(@gig.budget, precision: 0) %></span></p>
+						<%= @gig.location.capitalize %> | <%= @gig.category.name %> | <span class="label label-success"><%= number_to_currency(@gig.budget, precision: 0) %></span></p>
 						<hr/>
 						<legend>Description</legend>
 						<p><%= @gig.description %></p>
 						<legend>Skills Wanted</legend>
 						<ul>
-						<%# @gig.skills.each do |skill| %>
-						<li><%#= skill.name %></li>
-						<%# end %>
+						<% @gig.skills.each do |skill| %>
+						<li><%= skill.name %></li>
+						<% end %>
 					</ul>
 				</div>
 			</div>
 		<div class="col-xs-12 col-md-4">
 			<div class="content-inner-detail">
 				<legend>Subimit a Proposal</legend>
+
+				<% if user_signed_in? && @gig.user != current_user %>
 				<%= form_for :proposal, url: gig_proposals_path(@gig) do |f| %>
 				<div class="row">
 				<div class="col-xs-12 col-md-12">
@@ -47,6 +49,15 @@
 </div>
 <br/>
 <%= f.submit "Submit Proposal", class: "btn btn-primary input-lg" %>
+	<% end %>
+
+	<% elsif @gig.user == current_user && @gig.open == true %>
+		<h3 class="text-center"> You can't bid on your own!</h3>
+	<% elsif @gig.open == false %>
+		<h3 class="text-center">This gig is closed!</h3>
+	<% else %>
+	<h3 class="text-center">Sign in to make a bid!</h3>
+	<%= link_to 'Sign in', new_user_session_path, class: "btn btn-primary form-control" %>
 	<% end %>
 			</div>
 		</div>
@@ -109,13 +120,14 @@
 						<div class="panel-body">
 							<%= proposal.description %>
 							</div>
-
+					<% if current_user == @gig.user && @gig.awarded_proposal.blank? %>
 						<div class="panel-footer">
 							<%= form_for @gig, method: :put do |f| %>
 								<%= f.hidden_field :awarded_proposal, value: proposal.id %>
 								<%= f.hidden_field :open, value: false %>
 								<%= f.submit "Aword proposal" %>
 								<% end %>
+							<% end %>
 							</div>
 							</div>
 							<% end %>

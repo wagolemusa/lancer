@@ -145,7 +145,7 @@
                 <h4><a href="job-details.html"><%= link_to gig.name, gig %></a><span class="full-time"><%= number_to_currency(gig.budget, precision: 0) %></span></h4>
                 <p><%= h truncate(gig.description, length: 500) %></p>
 
-                <p>Skills:<%#= gig.skills.map{ |s| s.name }.join(",") %></p>
+                <p>Skills: <%= gig.skills.map{ |s| s.name }.join(",") %></p>
 
                 <%= gig.category.name %>
                 <div class="job-tag">
